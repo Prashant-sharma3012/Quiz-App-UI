@@ -42,11 +42,15 @@ class Quiz extends Component {
   };
 
   isEqual = (arr1, arr2) => {
+    // stringify options before you star tcomparing them
+    let arr1Stringified = arr1.map(e => e.toString());
+    let arr2Stringified = arr2.map(e => e.toString());
+
     // check all elements are present and length is same
     let allAnswersPresent = false;
     let lengthMatch = false;
-    arr1.map((e) => {
-      if (!arr2.includes(e)) {
+    arr1Stringified.map((e) => {
+      if (!arr2Stringified.includes(e)) {
         allAnswersPresent = false;
       } else {
         allAnswersPresent = true;
@@ -72,7 +76,7 @@ class Quiz extends Component {
     return false;
   };
 
-  submit = () => {
+  submit = () => {    
     let message = "";
     // chk if answer is correct
     if (this.isCorrect()) {
@@ -99,7 +103,7 @@ class Quiz extends Component {
     });
   };
 
-  onChange = (val) => {
+  onChange = (val, isSelected) => {
     let userSelection;
 
     if (!this.state.question.isMultiple) {
@@ -112,7 +116,13 @@ class Quiz extends Component {
     }
 
     if (this.state.question.userSelection) {
-      userSelection = [...this.state.question.userSelection, val];
+      if (isSelected) {
+        userSelection = [...this.state.question.userSelection, val];
+      } else {
+        userSelection = this.state.question.userSelection.filter(
+          (e) => e !== val
+        );
+      }
     } else {
       userSelection = [val];
     }

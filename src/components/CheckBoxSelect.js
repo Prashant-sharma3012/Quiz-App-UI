@@ -10,7 +10,7 @@ export default class CheckBoxSelect extends Component {
       [e.target.name]: e.target.checked,
     });
 
-    this.props.onChange(e.target.name);
+    this.props.onChange(e.target.name, e.target.checked);
   };
 
   isSelected = (opt) => {
