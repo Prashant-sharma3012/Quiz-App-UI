@@ -77,6 +77,11 @@ class Quiz extends Component {
   };
 
   submit = () => {    
+
+    if(!this.state.question.userSelection){
+      return;
+    }
+
     let message = "";
     // chk if answer is correct
     if (this.isCorrect()) {
