@@ -8,8 +8,8 @@ export default class Question extends Component {
     return (
       <div>
         <QuestionLabel text={question} />
-        {options.map((option) => (
-          <QuestionOption isMultiple={isMultiple} label={option} />
+        {options.map((option, indx) => (
+          <QuestionOption key={indx} isMultiple={isMultiple} label={option} />
         ))}
       </div>
     );
