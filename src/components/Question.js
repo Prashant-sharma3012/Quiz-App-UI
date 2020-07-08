@@ -4,7 +4,14 @@ import QuestionOption from "./QuestionOption";
 
 export default class Question extends Component {
   render() {
-    const { question, isMultiple, options, answer } = this.props.question;
+    const {
+      question,
+      isMultiple,
+      options,
+      answer,
+      isAnswered,
+    } = this.props.question;
+    
     return (
       <div>
         <QuestionLabel text={question} />
@@ -13,6 +20,7 @@ export default class Question extends Component {
           answer={answer}
           isMultiple={isMultiple}
           onChange={this.props.onChange}
+          isAnswered={isAnswered}
         />
       </div>
     );

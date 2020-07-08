@@ -18,7 +18,7 @@ export default class CheckBoxSelect extends Component {
   };
 
   render() {
-    const { options } = this.props;
+    const { options, isAnswered } = this.props;
 
     return (
       <div>
@@ -31,6 +31,7 @@ export default class CheckBoxSelect extends Component {
                 checked={this.state[option] || false}
                 onChange={this.onChange}
                 color="primary"
+                disabled={isAnswered}
               />
             }
             label={option}

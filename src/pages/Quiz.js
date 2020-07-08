@@ -89,6 +89,16 @@ class Quiz extends Component {
       answered: this.state.question,
       answeredIds: [...this.state.answeredIds, this.state.at],
       message: message,
+      question: {
+        ...this.state.question,
+        isAnswered: true
+      },
+      questions: this.state.questions.map((e, indx) => {
+        if(this.state.at === indx){
+          e.isAnswered = true
+        }
+        return e;
+      }),
     });
   };
 
@@ -144,14 +154,14 @@ class Quiz extends Component {
             <Question onChange={this.onChange} question={this.state.question} />
           )}
         </div>
-        <div className={classes.buttonContainer}>
+        {this.state.question && <div className={classes.buttonContainer}>
           <Button onClick={this.previous}>Prev</Button>
-          {!this.state.currentAnswered ? (
+          {!this.state.question.isAnswered ? (
             <Button onClick={this.submit}>Submit</Button>
           ) : (
             <Button onClick={this.next}>Next</Button>
           )}
-        </div>
+        </div>}
         <div>{this.state.message}</div>
       </div>
     );

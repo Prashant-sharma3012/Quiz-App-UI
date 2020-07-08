@@ -19,7 +19,7 @@ export default class RadioSelect extends Component {
   };
 
   render() {
-    const { options } = this.props;
+    const { options, isAnswered } = this.props;
 
     return (
       <div>
@@ -33,6 +33,7 @@ export default class RadioSelect extends Component {
               value={option.toString()}
               control={<Radio />}
               label={option.toString()}
+              disabled={isAnswered}
             />
           ))}
         </RadioGroup>

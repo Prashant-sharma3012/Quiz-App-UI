@@ -4,7 +4,7 @@ import RadioSelect from "./RadioSelect";
 
 export default class QuestionOption extends Component {
   render() {
-    const { isMultiple, options, answer, onChange } = this.props;
+    const { isMultiple, options, answer, onChange, isAnswered } = this.props;
 
     return (
       <div>
@@ -13,12 +13,14 @@ export default class QuestionOption extends Component {
             options={options}
             answer={answer}
             onChange={onChange}
+            isAnswered={isAnswered}
           />
         ) : (
           <RadioSelect
             options={options}
             answer={answer}
             onChange={onChange}
+            isAnswered={isAnswered}
           />
         )}
         <span>{this.props.label}</span>
