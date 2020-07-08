@@ -8,9 +8,12 @@ export default class Question extends Component {
     return (
       <div>
         <QuestionLabel text={question} />
-        {options.map((option, indx) => (
-          <QuestionOption key={indx} isMultiple={isMultiple} label={option} />
-        ))}
+        <QuestionOption
+          options={options}
+          answer={answer}
+          isMultiple={isMultiple}
+          onChange={this.props.onChange}
+        />
       </div>
     );
   }

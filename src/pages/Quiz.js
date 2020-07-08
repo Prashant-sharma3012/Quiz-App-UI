@@ -62,7 +62,10 @@ class Quiz extends Component {
 
   isCorrect = () => {
     if (
-      this.isEqual(this.state.question.answer, this.state.question.userSelection)
+      this.isEqual(
+        this.state.question.answer,
+        this.state.question.userSelection
+      )
     ) {
       return true;
     }
@@ -98,6 +101,15 @@ class Quiz extends Component {
 
   onChange = (val) => {
     let userSelection;
+
+    if (!this.state.question.isMultiple) {
+      return this.setState({
+        question: {
+          ...this.state.question,
+          userSelection: [val],
+        },
+      });
+    }
 
     if (this.state.question.userSelection) {
       userSelection = [...this.state.question.userSelection, val];

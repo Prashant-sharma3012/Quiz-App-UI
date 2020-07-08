@@ -1,24 +1,24 @@
 import React, { Component } from "react";
-import Checkbox from "@material-ui/core/Checkbox";
-import Radio from "@material-ui/core/Radio";
+import CheckBoxSelect from "./CheckBoxSelect";
+import RadioSelect from "./RadioSelect";
 
 export default class QuestionOption extends Component {
-  onChange = () => {};
-
   render() {
+    const { isMultiple, options, answer, onChange } = this.props;
+
     return (
       <div>
-        {this.props.isMultiple ? (
-          <Checkbox
-            checked={this.props.isChecked}
-            onChange={this.onChange}
-            inputProps={{ "aria-label": "primary checkbox" }}
+        {isMultiple ? (
+          <CheckBoxSelect
+            options={options}
+            answer={answer}
+            onChange={onChange}
           />
         ) : (
-          <Radio
-            checked={this.props.isChecked}
-            onChange={this.onChange}
-            value="a"
+          <RadioSelect
+            options={options}
+            answer={answer}
+            onChange={onChange}
           />
         )}
         <span>{this.props.label}</span>
