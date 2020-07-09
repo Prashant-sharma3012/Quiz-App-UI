@@ -2,8 +2,18 @@ import React, { Component } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import { withStyles } from "@material-ui/core";
 
-export default class RadioSelect extends Component {
+const styles = (theme) => ({
+  opt: {
+    "&:hover": {
+      backgroundColor: theme.palette.primary.light,
+      borderRadius: "4px",
+    },
+  },
+});
+
+class RadioSelect extends Component {
   state = {
     selected: null,
   };
@@ -23,7 +33,7 @@ export default class RadioSelect extends Component {
   };
 
   render() {
-    const { options, isAnswered } = this.props;
+    const { options, isAnswered, classes } = this.props;
 
     return (
       <div>
@@ -33,6 +43,7 @@ export default class RadioSelect extends Component {
         >
           {options.map((option, indx) => (
             <FormControlLabel
+              className={classes.opt}
               key={indx}
               value={option.toString()}
               control={<Radio />}
@@ -45,3 +56,5 @@ export default class RadioSelect extends Component {
     );
   }
 }
+
+export default withStyles(styles)(RadioSelect);

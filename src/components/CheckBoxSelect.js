@@ -1,8 +1,23 @@
 import React, { Component } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import { withStyles } from "@material-ui/core";
 
-export default class CheckBoxSelect extends Component {
+const styles = (theme) => ({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "start",
+  },
+  opt:{
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+      borderRadius: '4px'
+    }
+  }
+});
+
+class CheckBoxSelect extends Component {
   state = {};
 
   onChange = (e) => {
@@ -18,12 +33,13 @@ export default class CheckBoxSelect extends Component {
   };
 
   render() {
-    const { options, isAnswered } = this.props;
+    const { options, isAnswered, classes } = this.props;
 
     return (
-      <div>
+      <div className={classes.container}>
         {options.map((option, indx) => (
           <FormControlLabel
+            className={classes.opt}
             key={indx}
             control={
               <Checkbox
@@ -41,3 +57,5 @@ export default class CheckBoxSelect extends Component {
     );
   }
 }
+
+export default withStyles(styles)(CheckBoxSelect);

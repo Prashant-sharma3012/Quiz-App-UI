@@ -11,17 +11,17 @@ export default class Question extends Component {
       answer,
       isAnswered,
     } = this.props.question;
-    
+
     return (
       <div>
-        <QuestionLabel text={question} />
-        <QuestionOption
-          options={options}
-          answer={answer}
-          isMultiple={isMultiple}
-          onChange={this.props.onChange}
-          isAnswered={isAnswered}
-        />
+          <QuestionLabel text={question} />
+          <QuestionOption
+            options={options}
+            answer={answer}
+            isMultiple={isMultiple}
+            onChange={this.props.onChange}
+            isAnswered={isAnswered}
+          />
       </div>
     );
   }
