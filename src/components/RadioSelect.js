@@ -8,14 +8,18 @@ export default class RadioSelect extends Component {
     selected: null,
   };
 
+  componentDidMount() {
+    this.setState({ selected: null });
+  }
+
   onChange = (e) => {
     e.preventDefault();
 
     this.setState({
-      selected: e.target.value
-    })
+      selected: e.target.value,
+    });
 
-    this.props.onChange(e.target.value)
+    this.props.onChange(e.target.value);
   };
 
   render() {

@@ -43,8 +43,8 @@ class Quiz extends Component {
 
   isEqual = (arr1, arr2) => {
     // stringify options before you star tcomparing them
-    let arr1Stringified = arr1.map(e => e.toString());
-    let arr2Stringified = arr2.map(e => e.toString());
+    let arr1Stringified = arr1.map((e) => e.toString());
+    let arr2Stringified = arr2.map((e) => e.toString());
 
     // check all elements are present and length is same
     let allAnswersPresent = false;
@@ -76,9 +76,8 @@ class Quiz extends Component {
     return false;
   };
 
-  submit = () => {    
-
-    if(!this.state.question.userSelection){
+  submit = () => {
+    if (!this.state.question.userSelection) {
       return;
     }
 
@@ -96,11 +95,11 @@ class Quiz extends Component {
       message: message,
       question: {
         ...this.state.question,
-        isAnswered: true
+        isAnswered: true,
       },
       questions: this.state.questions.map((e, indx) => {
-        if(this.state.at === indx){
-          e.isAnswered = true
+        if (this.state.at === indx) {
+          e.isAnswered = true;
         }
         return e;
       }),
@@ -115,6 +114,7 @@ class Quiz extends Component {
     this.setState({
       at: this.state.at + 1,
       question: this.state.questions[this.state.at + 1],
+      message: "",
     });
   };
 
@@ -159,14 +159,16 @@ class Quiz extends Component {
             <Question onChange={this.onChange} question={this.state.question} />
           )}
         </div>
-        {this.state.question && <div className={classes.buttonContainer}>
-          <Button onClick={this.previous}>Prev</Button>
-          {!this.state.question.isAnswered ? (
-            <Button onClick={this.submit}>Submit</Button>
-          ) : (
-            <Button onClick={this.next}>Next</Button>
-          )}
-        </div>}
+        {this.state.question && (
+          <div className={classes.buttonContainer}>
+            <Button onClick={this.previous}>Prev</Button>
+            {!this.state.question.isAnswered ? (
+              <Button onClick={this.submit}>Submit</Button>
+            ) : (
+              <Button onClick={this.next}>Next</Button>
+            )}
+          </div>
+        )}
         <div>{this.state.message}</div>
       </div>
     );
