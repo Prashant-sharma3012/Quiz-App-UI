@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Home from "./pages/Home";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import Brightness3Outlined from "@material-ui/icons/Brightness3Outlined";
-import WbSunnyOutlined from "@material-ui/icons/WbSunnyOutlined";
+import AppThemeContext from "./AppThemeContext";
 
 export default class App extends Component {
   state = {
@@ -25,6 +23,12 @@ export default class App extends Component {
           },
         }),
       });
+
+      this.themeSettings = {
+        ...this.themeSettings,
+        isDark: false
+      }
+
     } else {
       this.setState({
         isDark: true,
@@ -34,29 +38,28 @@ export default class App extends Component {
           },
         }),
       });
+
+      this.themeSettings = {
+        ...this.themeSettings,
+        isDark: true
+      }
     }
   };
 
+  themeSettings = {
+    toggleTheme: this.toggleTheme,
+    isDark: true
+  }
+
   render() {
     return (
-      <ThemeProvider theme={this.state.theme}>
-        <div>
+      <AppThemeContext.Provider value={this.themeSettings}>
+        <ThemeProvider theme={this.state.theme}>
           <div>
-            <div>
-              {this.state.isDark ? (
-                <IconButton style={{color: 'black'}} onClick={this.toggleTheme}>
-                  <Brightness3Outlined />
-                </IconButton>
-              ) : (
-                <IconButton style={{color: 'black'}} onClick={this.toggleTheme}>
-                  <WbSunnyOutlined />
-                </IconButton>
-              )}
-            </div>
+            <Home />
           </div>
-          <Home />
-        </div>
-      </ThemeProvider>
+        </ThemeProvider>
+      </AppThemeContext.Provider>
     );
   }
 }
