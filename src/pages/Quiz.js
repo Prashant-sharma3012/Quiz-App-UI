@@ -46,6 +46,14 @@ const styles = (theme) => ({
   incorrect: {
     backgroundColor: theme.palette.error.light,
   },
+  position:{
+    display: "flex",
+    justifyContent: "center",
+    fontSize: "1.4rem",
+    fontFamily: "roboto, sans-serif",
+    fontWeight: 500,
+    marginBottom: '1rem'
+  }
 });
 
 class Quiz extends Component {
@@ -56,7 +64,6 @@ class Quiz extends Component {
     question: null,
     at: 0,
     currentAnswered: false,
-    message: "",
     isCorrect: false,
   };
 
@@ -119,28 +126,25 @@ class Quiz extends Component {
     }
 
     let isCorrect = false;
-
-    let message = "";
     // chk if answer is correct
     if (this.isCorrect()) {
-      message = "Correct";
       isCorrect = true;
     } else {
-      message = "In Correct";
       isCorrect = false;
     }
 
     this.setState({
       answered: this.state.question,
       answeredIds: [...this.state.answeredIds, this.state.at],
-      message: message,
       question: {
         ...this.state.question,
         isAnswered: true,
+        isCorrect,
       },
       questions: this.state.questions.map((e, indx) => {
         if (this.state.at === indx) {
           e.isAnswered = true;
+          e.isCorrect = isCorrect;
         }
         return e;
       }),
@@ -156,7 +160,6 @@ class Quiz extends Component {
     this.setState({
       at: this.state.at + 1,
       question: this.state.questions[this.state.at + 1],
-      message: "",
     });
   };
 
@@ -196,53 +199,64 @@ class Quiz extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.main}>
+        <div className={classes.position}>{this.state.at + 1} of {this.state.questions.length}</div>
         <Paper elevation={3}>
-          <div className={classes.container}>
-            <div className={classes.questionContainer}>
-              {this.state.question && (
-                <Question
-                  onChange={this.onChange}
-                  question={this.state.question}
-                />
-              )}
-            </div>
-            {this.state.question && (
-              <div className={classes.buttonContainer}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={this.previous}
-                >
-                  Prev
-                </Button>
-                {!this.state.question.isAnswered ? (
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={this.submit}
-                  >
-                    Submit
-                  </Button>
-                ) : (
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={this.next}
-                  >
-                    Next
-                  </Button>
+          {this.state.question && (
+            <div
+              className={`${classes.container}
+                ${
+                  this.state.question.isAnswered
+                    ? this.state.question.isCorrect
+                      ? classes.correct
+                      : classes.incorrect
+                    : ""
+                }`}
+            >
+              <div className={classes.questionContainer}>
+                {this.state.question && (
+                  <Question
+                    onChange={this.onChange}
+                    question={this.state.question}
+                  />
                 )}
               </div>
-            )}
-            {this.state.message && (
-              <div
-                className={`${classes.message}
-                ${this.state.isCorrect ? classes.correct : classes.incorrect}`}
-              >
-                {this.state.message}
-              </div>
-            )}
-          </div>
+              {this.state.question && (
+                <div className={classes.buttonContainer}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={this.previous}
+                  >
+                    Prev
+                  </Button>
+                  {!this.state.question.isAnswered ? (
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={this.submit}
+                    >
+                      Submit
+                    </Button>
+                  ) : (
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={this.next}
+                    >
+                      Next
+                    </Button>
+                  )}
+                </div>
+              )}
+              {this.state.question.isAnswered && (
+                <div className={classes.message}>
+                  {this.state.question.isCorrect
+                    ? "Awesome"
+                    : "Oops, Thats not the right Answer"}
+                </div>
+              )}
+            </div>
+          )}
         </Paper>
       </div>
     );
