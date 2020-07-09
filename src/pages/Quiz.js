@@ -52,7 +52,8 @@ const styles = (theme) => ({
     fontSize: "1.4rem",
     fontFamily: "roboto, sans-serif",
     fontWeight: 500,
-    marginBottom: '1rem'
+    marginBottom: '1rem',
+    color: theme.palette.type === "light" ? "#000" : "#FFF",
   }
 });
 
